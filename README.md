@@ -1,9 +1,13 @@
 # time_tracker
 
-To build just run:
+To build:
 
 `docker compose build`
 
-To set up run:
+To set up:
 
 `docker compose up`
+
+To clone:
+
+`git clone https://github.com/ZeroDayRNA/time_tracker.git`
