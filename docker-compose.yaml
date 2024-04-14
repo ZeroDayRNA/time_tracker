@@ -1,0 +1,15 @@
+services:
+  api:
+    build: ./timetracker
+    ports:
+    - 8000:8000
+    volumes:
+    - ./timetracker:/timetracker
+    command: bash -c 'python manage.py runserver 0.0.0.0:8000'
+
+  web:
+    build: ./frontend
+    ports:
+    - 5172:5172
+    volumes:
+    - ./frontend:/frontend
