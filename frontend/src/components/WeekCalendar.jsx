@@ -32,8 +32,14 @@ function WeekCalendar(){
       const dp = calendarRef.current.control;
       const modal = await DayPilot.Modal.prompt("Update event text:", e.text());
       if (!modal.result) { return; }
+      const id = e.id()
+      const text = modal.result
+      const start = e.data.start
+      const end = e.data.end
+      const res = await api.put(`/api/events/${id}/`,{text,start,end})
+      if (res.status!=201)return;
       e.data.text = modal.result;
-      dp.events.update(e);
+      await dp.events.update(e);
     };
   
     const [calendarConfig, setCalendarConfig] = useState({
@@ -61,6 +67,20 @@ function WeekCalendar(){
       onEventClick: async args => {
         await editEvent(args.e);
       },
+      onEventResized: async args =>{
+        const id = args.e.id()
+        const text = args.e.text()
+        const start = args.newStart
+        const end = args.newEnd
+        const res = await api.put(`/api/events/${id}/`,{text,start,end})
+      },
+      onEventMoved: async args =>{
+        const id = args.e.id()
+        const text = args.e.text()
+        const start = args.newStart
+        const end = args.newEnd
+        const res = await api.put(`/api/events/${id}/`,{text,start,end})
+      },
       contextMenu: new DayPilot.Menu({
         items: [
           {
@@ -79,12 +99,7 @@ function WeekCalendar(){
           {
             text: "Edit...",
             onClick: async args => {
-              const edit = await editEvent(args.source);
-              const res = await api.put('/api/events/')
-              console.log(res)
-              if (res.status!=201)return;
-              
-
+                editEvent(args.source);
             }
           }
         ]
@@ -129,8 +144,6 @@ function WeekCalendar(){
                     selectMode={"Week"}
                     showMonths={3}
                     skipMonths={3}
-                    startDate={"2023-10-02"}
-                    selectionDay={"2023-10-02"}
                     onTimeRangeSelected={ args => {
                     calendarRef.current.control.update({
                         startDate: args.day
