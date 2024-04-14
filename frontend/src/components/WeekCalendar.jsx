@@ -17,7 +17,7 @@ function WeekCalendar(){
             .then((res) => res.data)
             .then((data) => {
                 setEvents(data); 
-                console.log(Events)
+                console.log(data)
                 const events = data
             
                 const startDate = "2024-04-14";
@@ -45,15 +45,16 @@ function WeekCalendar(){
         const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
         dp.clearSelection();
         if (!modal.result) { return; }
-        api.post('/api/events/', {text,start,end}).then((res) => {
-            if(res.status === 201) alert('event created')
-            else alert('failed to create event')
-        }).catch((err)=> alert(err))
+        const text = modal.result
+        const start = args.start
+        const end = args.end
+        const res = await api.post('/api/events/', {text,start,end})
+        if(res.status!=201) return;
         getEvents()
         dp.events.add({
           start: args.start,
           end: args.end,
-          id: DayPilot.guid(),
+          id: res.data.id,
           text: modal.result
         });
       },
@@ -66,6 +67,9 @@ function WeekCalendar(){
             text: "Delete",
             onClick: async args => {
               const dp = calendarRef.current.control;
+              const id = args.source.id()
+              const res = await api.delete(`/api/events/delete/${id}/`)
+              if(res.status!=204) return;
               dp.events.remove(args.source);
             },
           },
@@ -75,7 +79,12 @@ function WeekCalendar(){
           {
             text: "Edit...",
             onClick: async args => {
-              await editEvent(args.source);
+              const edit = await editEvent(args.source);
+              const res = await api.put('/api/events/')
+              console.log(res)
+              if (res.status!=201)return;
+              
+
             }
           }
         ]
@@ -87,7 +96,6 @@ function WeekCalendar(){
             right: 3,
             width: 20,
             height: 20,
-            symbol: "icons/daypilot.svg#minichevron-down-2",
             fontColor: "#fff",
             toolTip: "Show context menu",
             action: "ContextMenu",
@@ -97,7 +105,6 @@ function WeekCalendar(){
             right: 25,
             width: 20,
             height: 20,
-            symbol: "icons/daypilot.svg#x-circle",
             fontColor: "#fff",
             action: "None",
             toolTip: "Delete event",
@@ -107,23 +114,6 @@ function WeekCalendar(){
             }
           }
         ];
-  
-  
-        const participants = args.data.participants;
-        if (participants > 0) {
-          // show one icon for each participant
-          for (let i = 0; i < participants; i++) {
-            args.data.areas.push({
-              bottom: 5,
-              right: 5 + i * 30,
-              width: 24,
-              height: 24,
-              action: "None",
-              image: `https://picsum.photos/24/24?random=${i}`,
-              style: "border-radius: 50%; border: 2px solid #fff; overflow: hidden;",
-            });
-          }
-        }
       }
     });
   
