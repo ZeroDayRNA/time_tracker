@@ -3,9 +3,30 @@ import {DayPilot, DayPilotCalendar, DayPilotNavigator} from '@daypilot/daypilot-
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
+import api from '../api'
 
 function WeekCalendar(){
     const calendarRef = useRef()
+
+    const [Events, setEvents] = useState([])
+
+    const getEvents = () => {
+
+        api
+            .get('/api/events/')
+            .then((res) => res.data)
+            .then((data) => {
+                setEvents(data); 
+                console.log(Events)
+                const events = data
+            
+                const startDate = "2024-04-14";
+            
+                calendarRef.current.control.update({startDate, events});
+            
+            })
+            .catch((err)=>{console.log(err)})
+    }
 
     const editEvent = async (e) => {
       const dp = calendarRef.current.control;
@@ -24,6 +45,11 @@ function WeekCalendar(){
         const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
         dp.clearSelection();
         if (!modal.result) { return; }
+        api.post('/api/events/', {text,start,end}).then((res) => {
+            if(res.status === 201) alert('event created')
+            else alert('failed to create event')
+        }).catch((err)=> alert(err))
+        getEvents()
         dp.events.add({
           start: args.start,
           end: args.end,
@@ -102,43 +128,7 @@ function WeekCalendar(){
     });
   
     useEffect(() => {
-      const events = [
-        {
-          id: 1,
-          text: "Event 1",
-          start: "2023-10-02T10:30:00",
-          end: "2023-10-02T13:00:00",
-          participants: 2,
-        },
-        {
-          id: 2,
-          text: "Event 2",
-          start: "2023-10-03T09:30:00",
-          end: "2023-10-03T11:30:00",
-          backColor: "#6aa84f",
-          participants: 1,
-        },
-        {
-          id: 3,
-          text: "Event 3",
-          start: "2023-10-03T12:00:00",
-          end: "2023-10-03T15:00:00",
-          backColor: "#f1c232",
-          participants: 3,
-        },
-        {
-          id: 4,
-          text: "Event 4",
-          start: "2023-10-01T11:30:00",
-          end: "2023-10-01T14:30:00",
-          backColor: "#cc4125",
-          participants: 4,
-        },
-      ];
-  
-      const startDate = "2023-10-02";
-  
-      calendarRef.current.control.update({startDate, events});
+        getEvents()
     }, []);
   
     return (

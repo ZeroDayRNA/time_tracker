@@ -3,19 +3,6 @@ import api from '../api'
 import WeekCalendar from '../components/WeekCalendar'
 
 function Calendar (){
-    const [Events, setEvents] = useState([])
-
-    const getEvents = () => {
-        api
-            .get('/api/events/')
-            .then((res) => res.data)
-            .then((data) => {setEvents(data); console.log(Events)})
-            .catch((err)=>{console.log(err)})
-    }
-
-    useEffect(() => {
-        getEvents()
-    },[])
 
     const deleteEvent = (id) =>{
         api.delete(`/api/events/delete/${id}/`).then((res)=>{
