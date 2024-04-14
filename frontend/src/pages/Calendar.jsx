@@ -1,7 +1,7 @@
 import WeekCalendar from '../components/WeekCalendar'
 
 function Calendar (){
-    return<div><WeekCalendar/></div>
+    return<WeekCalendar/>
 }
 
 export default Calendar

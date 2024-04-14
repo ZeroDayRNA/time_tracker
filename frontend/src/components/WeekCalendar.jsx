@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import api from '../api'
+import '../styles/WeekCalendar.css'
 
 function WeekCalendar(){
     const calendarRef = useRef()
@@ -137,29 +138,26 @@ function WeekCalendar(){
     }, []);
   
     return (
-        <Container>
-            <Row>
-                <Col>
-                <DayPilotNavigator
-                    selectMode={"Week"}
-                    showMonths={3}
-                    skipMonths={3}
-                    onTimeRangeSelected={ args => {
-                    calendarRef.current.control.update({
-                        startDate: args.day
-                    });
-                    }}
-                />
-                </Col>
-                <Col>
-                <DayPilotCalendar
-                    {...calendarConfig}
-                    ref={calendarRef}
-                />
-                </Col>
-            </Row>
-        </Container>
-
+      <Row id="main-row">
+          <Col className="tall-column" xs={2}>
+              <DayPilotNavigator
+                  selectMode={"Week"}
+                  showMonths={3}
+                  skipMonths={3}
+                  onTimeRangeSelected={ args => {
+                  calendarRef.current.control.update({
+                      startDate: args.day
+                  });
+                  }}
+              />
+            </Col>
+            <Col className="tall_column" xs={10}>
+              <DayPilotCalendar
+                  {...calendarConfig}
+                  ref={calendarRef}
+              />
+          </Col>
+      </Row>
     );
 }
 
