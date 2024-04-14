@@ -21,8 +21,10 @@ function Form({route,method}){
                 localStorage.setItem(ACCESS_TOKEN, res.data.access)
                 localStorage.setItem(REFRESH_TOKEN, res.data.refresh)
                 navigate('/')
+                console.log('you just logged in')
             }
             else{
+                console.log('you just registered')
                 navigate('/login')
             }
         } catch (error) {
