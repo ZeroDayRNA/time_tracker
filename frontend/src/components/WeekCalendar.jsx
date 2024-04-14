@@ -141,20 +141,20 @@ function WeekCalendar(){
       <Row id="main-row">
           <Col className="tall-column" xs={2}>
               <DayPilotNavigator
-                  selectMode={"Week"}
-                  showMonths={3}
-                  skipMonths={3}
-                  onTimeRangeSelected={ args => {
-                  calendarRef.current.control.update({
-                      startDate: args.day
-                  });
-                  }}
+                selectMode={"Week"}
+                showMonths={3}
+                skipMonths={3}
+                onTimeRangeSelected={ args => {
+                calendarRef.current.control.update({
+                    startDate: args.day
+                });
+                }}
               />
             </Col>
             <Col className="tall_column" xs={10}>
               <DayPilotCalendar
-                  {...calendarConfig}
-                  ref={calendarRef}
+                {...calendarConfig}
+                ref={calendarRef}
               />
           </Col>
       </Row>
