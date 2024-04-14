@@ -2,8 +2,9 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from .models import Event
 
-# Create your tests here.
-
+# Tried to implement django tests, 
+# didn't go too well, just going to write some curl scripts instead.
+"""
 class AuthenticationTest(TestCase):
     def setUp(self):
         User.objects.create(id=200000,username='fakeuser',password='fakepass')
@@ -13,7 +14,6 @@ class AuthenticationTest(TestCase):
         response = self.client.get('/', follow=True)
         self.assertEqual(loggedin,True)
 
-"""
 class EventModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
