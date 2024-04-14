@@ -4,8 +4,8 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    padding: 20px;
     max-width: 400px;
+    height: 100%;
 }
 
 .form-input{
@@ -14,5 +14,20 @@
 }
 
 .form-button{
-    width:95%;
+    width:90%;
+}
+
+.title{
+    text-align: center;
+    font-size: 50px;
+    color: whitesmoke
+}
+
+.name{
+    color: whitesmoke;
+    text-align: center;
+}
+
+.page-container{
+    height: 100%;
 }

@@ -1,3 +1,9 @@
 #root{
     justify-content: center;
+    background-color:rgb(37, 44, 54);
+    height: 100%;
+}
+
+html,body{
+    height: 100%;
 }

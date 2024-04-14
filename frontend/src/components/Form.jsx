@@ -3,8 +3,14 @@ import api from "../api";
 import {useNavigate} from 'react-router-dom'
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import '../styles/Form.css'
+import Form from 'react-bootstrap/Form'
+import InputGroup from 'react-bootstrap/InputGroup'
+import Button from 'react-bootstrap/Button'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
-function Form({route,method}){
+
+function DefaultForm({route,method}){
     const [username,setUsername] = useState('')
     const [password,setPassword] = useState('')
     const [loading,setLoading] = useState(false)
@@ -35,8 +41,52 @@ function Form({route,method}){
         }
     }
 
+    return <>
+    <Col className="page-container">
+    <h1 className="title">TimeTracker</h1>    
+        <form onSubmit={handleSubmit} className="form-container">
+        <h1 className="name">{name}</h1>
+        <InputGroup  className="mb-3">
+            <Col>
+                <Row>
+                <Form.Control aria-label="Username"
+                className="form-input"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Username"
+            />
+                </Row>
+                <Row>
+                
+            <Form.Control
+                className="form-input"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+            />
+                </Row>
+                <Row>
+                
+            <Button className="form-button" type="submit" variant="dark">
+                {name}
+            </Button>
+                </Row>
+            </Col>
+        </InputGroup>
+        </form>
+        
+
+    
+    </Col>
+        
+    </>
+}
+    /*
     return <form onSubmit={handleSubmit} className="form-conatiner">
-        <h1>{name}</h1>
+        <h1 className="title">TimeTracker</h1>
+        <h1 className="name">{name}</h1>
         <input
             className="form-input"
             type="text"
@@ -55,6 +105,6 @@ function Form({route,method}){
             {name}
         </button>
     </form>
-}
+}*/
 
-export default Form
+export default DefaultForm

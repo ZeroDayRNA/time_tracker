@@ -22,6 +22,7 @@ function App() {
 
   return (
     <>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no, viewport-fit=cover"></meta>
     <BrowserRouter>
       <Routes>
         <Route
@@ -55,3 +56,5 @@ function App() {
 }
 
 export default App
+
+import 'bootstrap/dist/css/bootstrap.min.css';
