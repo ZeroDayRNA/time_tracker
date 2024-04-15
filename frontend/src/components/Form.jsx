@@ -18,6 +18,8 @@ function DefaultForm({route,method}){
 
     const name = method === 'login' ? 'Login' : 'Register'
 
+    const otherName = method === 'login' ? 'Register' : 'Login'
+
     const handleSubmit = async (e) => {
         setLoading(true)
         e.preventDefault()
@@ -39,6 +41,10 @@ function DefaultForm({route,method}){
         } finally{
             setLoading(false)
         }
+    }
+    const handleSwitch = (e) =>{
+        navigate(`/${otherName.toLowerCase()}`)
+        e.preventDefault()
     }
 
     return <>
@@ -71,6 +77,9 @@ function DefaultForm({route,method}){
                 
             <Button className="form-button" type="submit" variant="dark">
                 {name}
+            </Button>
+            <Button className="form-button" onClick={handleSwitch} variant="dark">
+                {otherName}
             </Button>
                 </Row>
             </Col>
