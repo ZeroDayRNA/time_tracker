@@ -1,10 +1,12 @@
 import axios from 'axios'
 import { ACCESS_TOKEN } from './constants'
 
+// Pulls the base url form the .env in this directory for the axios interceptor.
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL
 });
 
+// Handles axios request interception.
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem(ACCESS_TOKEN)

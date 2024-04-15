@@ -83,28 +83,5 @@ function DefaultForm({route,method}){
         
     </>
 }
-    /*
-    return <form onSubmit={handleSubmit} className="form-conatiner">
-        <h1 className="title">TimeTracker</h1>
-        <h1 className="name">{name}</h1>
-        <input
-            className="form-input"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Username"
-        />
-        <input
-            className="form-input"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-        />
-        <button className="form-button" type="submit">
-            {name}
-        </button>
-    </form>
-}*/
 
 export default DefaultForm

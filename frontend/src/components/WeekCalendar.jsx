@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import {DayPilot, DayPilotCalendar, DayPilotNavigator} from '@daypilot/daypilot-lite-react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Container from 'react-bootstrap/Container'
 import api from '../api'
 import '../styles/WeekCalendar.css'
 
@@ -11,6 +10,7 @@ function WeekCalendar(){
 
     const [Events, setEvents] = useState([])
 
+    // Updates front end with back end data
     const getEvents = () => {
 
         api
@@ -29,6 +29,7 @@ function WeekCalendar(){
             .catch((err)=>{console.log(err)})
     }
 
+    // Handles the editing of events on the calendar
     const editEvent = async (e) => {
       const dp = calendarRef.current.control;
       const modal = await DayPilot.Modal.prompt("Update event text:", e.text());
@@ -132,7 +133,9 @@ function WeekCalendar(){
         ];
       }
     });
-  
+
+
+    // Refreshes front end with back end data whenever the page is loaded
     useEffect(() => {
         getEvents()
     }, []);

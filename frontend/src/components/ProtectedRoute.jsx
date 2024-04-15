@@ -40,6 +40,7 @@ function ProtectedRoute({children}){
         }
         const decoded = jwtDecode(token)
         const tokenExpiration = decoded.exp
+        // Divided time by 1000 to get time in seconds instead of miliseconds.
         const now = Date.now()/1000
 
         if (tokenExpiration < now){
@@ -53,6 +54,7 @@ function ProtectedRoute({children}){
         return <div>Loading...</div>
     }
 
+    // If the user is not authorized, will send them to the login page.
     return isAuthorized ? children : <Navigate to='/login'/>
 }
 
