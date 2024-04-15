@@ -1,13 +1,21 @@
 # time_tracker
 
-To build:
+To install you must first.
+
+Clone:
+
+`git clone https://github.com/ZeroDayRNA/time_tracker.git`
+
+Then change into the frontend directory and run.
+
+`npm install`
+
+Then in the root directory run.
+
+Build:
 
 `docker compose build`
 
-To set up:
+Set up:
 
 `docker compose up`
-
-To clone:
-
-`git clone https://github.com/ZeroDayRNA/time_tracker.git`
